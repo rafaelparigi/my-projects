@@ -1,17 +1,13 @@
 const CrewMember = require ('./CrewMember');
 
-
 describe('Crew member', () => {
-    test('name is', () => {
-        expect(() => new CrewMember(undefined, 'random', 'random')).toThrowError('Crew member must have a name');
-    })
-    test('position is', () => {
-        expect(() => new CrewMember('random', undefined, 'random')).toThrowError('Crew member must have a position');
-    })
-    test('staff number is', () => {
-        expect(() => new CrewMember('random', 'random', undefined)).toThrowError('Crew member must have a staff number');
-    })
-    test('no undefined arguments', () => {
-        expect(() => new CrewMember('random', 'random', 'random')).not.toThrowError();
-    })
+    test('throws error if position is missing', () => {
+        expect(() => new CrewMember('random', [], undefined, 'random')).toThrowError('Crew member must have a position');
+    });
+    test('throws error if staff number is incorrect', () => {
+        expect(() => new CrewMember('random', [], 'random', undefined)).toThrowError('Crew member must have a staff number');
+    });
+    test('does not throw error if all arguments are valid', () => {
+        expect(() => new CrewMember('random', [], 'random', 'random')).not.toThrowError();
+    });
 });

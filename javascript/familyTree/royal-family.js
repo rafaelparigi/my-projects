@@ -2,8 +2,8 @@ class Royal {
     constructor(name, parents) {
         this.name = name;
         this.parents = parents;
-        this.childOf = () => this.parents[0] + " " + this.parents[1];
     }
+    childOf = () => this.parents[0] + " " + this.parents[1];
 };
 
 const firstGen = [ 
@@ -23,6 +23,9 @@ const thirdGen = [
     new Royal("Prince Harry", ["Charles", "Diana"]),
 ];
 
-console.log(thirdGen[1].childOf());
+console.log(firstGen[0]);
 
 //thirdGen.forEach(royalPerson => console.log(royalPerson.childOf()));
+
+module.exports = Royal;
+

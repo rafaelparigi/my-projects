@@ -1,10 +1,10 @@
-class CrewMember {
-    constructor(name, position, staffNumber) {
-        this.name = name;
+const Person = require('./Person');
+
+class CrewMember extends Person {
+    constructor(name, bags, position, staffNumber) {
+        super(name, bags);
         this.position = position; 
         this.staffNumber = staffNumber;
-        if (this.name === undefined)
-            throw new Error('Crew member must have a name')
         if (this.position === undefined)
             throw new Error('Crew member must have a position')
         if (this.staffNumber === undefined)
