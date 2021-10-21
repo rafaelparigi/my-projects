@@ -8,9 +8,7 @@ straight from the class and not from its instances.
 */
 class Server {
     static handleDownloadRequest() {
-        console.log('FOOOOOOOOOOO', typeof App);
-        const app = new App()
-        return app;
+        return new App();
     };
     static handleBrokenScooter(scooter) {
         console.log('Apologies for the inconvenience');
