@@ -1,3 +1,6 @@
+const { Scooter } = require("./Scooter");
+const { Server } = require("./Server");
+
 class User {
     constructor(age, bankDetails) {
         this.age = age;

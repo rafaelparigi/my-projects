@@ -23,6 +23,8 @@ class App {
             scooter.setIsAvailable(false);
         };
     };
+re
+
     //user reports broken scooter on the app, but it's handled by the server.
     reportBrokenScooter(scooter, server) {
         server.handleBrokenScooter(scooter);

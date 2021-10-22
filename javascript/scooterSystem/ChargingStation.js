@@ -1,3 +1,5 @@
+const { Scooter } = require('./Scooter');
+
 class ChargingStation {
 
     MILLISECONDS_IN_TWO_HOURS = 7_200_000;
@@ -8,11 +10,13 @@ class ChargingStation {
         await new Promise((resolve, reject) => {
             setTimeout(() => {
                 scooter.chargingLevel = 1;
+                console.log('Charge complete');
                 scooter.setIsAvailable(true);
                 resolve();
-            }, this.MILLISECONDS_IN_TWO_HOURS * (1 - this.chargingLevel))
+            }, this.MILLISECONDS_IN_TWO_HOURS * (1 - this.chargingLevel));
         });
     };
 };
 
 module.exports = { ChargingStation };
+
