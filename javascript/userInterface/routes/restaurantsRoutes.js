@@ -48,9 +48,9 @@ router.post('/:restaurant_id/menus', async (req, res) => {
         if (restaurant) {
             const menu = await Menu.create(req.body);
             await restaurant.addMenu(menu);
-            res.render.send(menu);
+            res.render('index');
         } else {
-            res.status(400).send(`${req.params.restaurant_id} does not exist`)
+            res.status(400).send(`${req.params.restaurant_id} does not exist`);
         }
     } catch(error) {
         res.status(400).send(error.message);

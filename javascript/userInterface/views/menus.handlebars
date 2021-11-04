@@ -3,7 +3,6 @@
 </section>
 
 <section>
-    
     <!--resto_id and menus are passed from the get request as arguments that we can acess in menus.handlebars-->
     <!--//TO POST a new menu for a specific restaurant-->
     <form action="/restaurants/{{resto_id}}/menus" method="post"> 
@@ -11,24 +10,20 @@
         <input type="submit">
     </form>
 
-
     <!--//TO GET menus for a specific restaurant-->
     {{#each menus}}
         <article id="article-{{this.id}}">
             <h2 >{{this.id}}</h2>
             <h2>{{this.title}}</h2>
-    
+
+    <!--//To view the menu items of a specific restaurant-->
+    <a href='/menus/{{id}}/menu_items'>See items</a>
+
     <!--//TO DELETE a menu for a specific restaurant-->
             <button type="button" data-id={{this.id}} onclick="deleteMenu({{this.RestaurantId}}, {{this.id}})">Delete menu</button>
         <article/>
     {{/each}}
     <script>
         let numOfMenus = {{menus.length}};
-        async function deleteMenu(restoId, menuId) {
-            const response = await fetch(`restaurants/${restoId}/menus/${menuId}`, { method: 'DELETE' }).then(() => document.getElementById(`article-${menuId}`).remove()).then(() => {
-                numOfMenus -= 1
-                document.getElementById('numOfMenus').innerHTML = `There are ${numOfMenus} menus.`
-            });
-        };
     </script>
 </section>
