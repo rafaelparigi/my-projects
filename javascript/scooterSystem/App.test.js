@@ -1,3 +1,4 @@
+const { Server } = require('./Server');
 const { App } = require('./App');
 const { User }= require('./User');
 const { Scooter } = require('./Scooter');
@@ -18,7 +19,10 @@ describe('App', () => {
         const user = new User(20, '1234');
         myApp.registerUser(user);
         expect(myApp.appUser).toBe(user);
+<<<<<<< HEAD
 
+=======
+>>>>>>> a839723c8b04330bd63a229dfcaca0e265adf68a
     });
     test('rentScooter method should throw error if user is not registered', () => {
         const myApp = new App();
@@ -48,13 +52,21 @@ describe('App', () => {
     test('if scooter is broken and unavailable after we execute reportBrokenScooter', () => {
         const myApp = new App();
         const scooter = new Scooter(true, false);
+<<<<<<< HEAD
         expect(scooter.isBroken).toBe(false);
         expect(scooter.isAvailable).toBe(true);
         myApp.reportBrokenScooter(scooter);
+=======
+        const server = new Server
+        expect(scooter.isBroken).toBe(false);
+        expect(scooter.isAvailable).toBe(true);
+        expect(() => myApp.reportBrokenScooter(scooter, server)).not.toThrowError();
+>>>>>>> a839723c8b04330bd63a229dfcaca0e265adf68a
         expect(scooter.isBroken).toBe(true);
         expect(scooter.isAvailable).toBe(false);
     });
     test('if takePayment handles null users', () => {
+<<<<<<< HEAD
         const myUser = new User(30, 'anything');
         myUser.downloadApp();
         expect(() => myUser.takePayment()).toThrowError('user not registered');
@@ -64,12 +76,26 @@ describe('App', () => {
         myUser.downloadApp();
         myUser.registerDetailsInApp();
         expect(() => myUser.userApp.takePayment()).toThrowError('invalid bank details');
+=======
+        const server = new Server();
+        const myUser = new User(30, 'anything');
+        myUser.downloadApp(server);
+        expect(() => myUser.userApp.takePayment(server)).toThrowError('user not registered');
+    });
+    test('if takePayment handles invalid bank details', () => {
+        const server = new Server();
+        const myUser = new User(30, 'invalid');
+        myUser.downloadApp(server);
+        myUser.registerDetailsInApp();
+        expect(() => myUser.userApp.takePayment(server)).toThrowError('invalid bank details');
+>>>>>>> a839723c8b04330bd63a229dfcaca0e265adf68a
     });
     test('if takePayment handles valid bank details', () => {
+        const server = new Server();
         const myUser = new User(30, 'anything but invalid');
-        myUser.downloadApp();
+        myUser.downloadApp(server)
         myUser.registerDetailsInApp();
-        myUser.userApp.takePayment();
+        myUser.userApp.takePayment(server);
         expect(myUser.successfulPayment).toBe(true);
     });
 });

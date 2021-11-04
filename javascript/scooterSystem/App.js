@@ -1,5 +1,3 @@
-const { Server } = require('./Server');
-
 class App {
     constructor() {
         //initialises to null as user is not yet registered
@@ -25,14 +23,16 @@ class App {
             scooter.setIsAvailable(false);
         };
     };
+re
+
     //user reports broken scooter on the app, but it's handled by the server.
-    reportBrokenScooter(scooter) {
-        Server.handleBrokenScooter(scooter);
+    reportBrokenScooter(scooter, server) {
+        server.handleBrokenScooter(scooter);
     };
     //user chooses to pay on the app, but payment is handled by the server.
-    takePayment() {
-        Server.handlePayment(this.appUser);
+    takePayment(server) {
+        server.handlePayment(this.appUser);
     };
 };
 
-module.exports = { App: App };
+module.exports = { App };

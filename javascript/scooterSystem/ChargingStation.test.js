@@ -9,13 +9,16 @@ describe('ChargingStation', () => {
         await chargingStation1.chargeScooter(myScooter);
         expect(myScooter.isAvailable).toBe(true);
     });
-    test('if chargeScooter takes the scooter back to fully charged', async () => {
+    test('if chargeScooter takes the scooter back to fully charged', () => {
+        jest.useFakeTimers();
         const myScooter = new Scooter(false, false);
         const chargingStation1 = new ChargingStation('Leeds');
         expect(myScooter.chargingLevel).toBe(1);
         myScooter.adjustChargingLevel(24);
         expect(myScooter.chargingLevel).toBe(0.25);
-        await chargingStation1.chargeScooter(myScooter);
+        chargingStation1.chargeScooter(myScooter);
+        jest.runAllTimers();
         expect(myScooter.chargingLevel).toBe(1);
+        jest.useRealTimers();
     });
 });

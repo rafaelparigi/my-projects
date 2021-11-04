@@ -27,7 +27,11 @@ const restaurantModel = {
                 msg: 'must be alphanumeric'
             }
         }
-    }
+    },
+    imagelink: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      }
 };
 
 const menuModel = {
