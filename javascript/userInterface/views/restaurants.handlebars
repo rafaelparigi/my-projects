@@ -1,0 +1,45 @@
+<section id="numOfRestos">
+    There are {{restaurants.length}} restaurants.
+</section>
+
+<form method="post" action="/restaurants">
+    <input placeholder="New restaurant name" type="text" name="name"/>
+    <input type="submit"/>
+</form>
+
+<section>
+    <!--//TO GET RESTAURANTS-->
+    {{#each restaurants}}
+        <article id="article-{{this.id}}">
+            <h2 >{{this.id}}</h2>
+            <h2>{{this.name}}</h2>
+            <!-- <button type="button" data-id='{{this.id}}' onClick='viewRestaurant({{this.id}});'> View</button> -->
+            <a href='/restaurants/{{id}}/menus'>Go to menu</a>
+            
+            <!-- data-*	Used to store custom data private to the page or application
+                 id	Specifies a unique id for an element-->
+            <!--//TO DELETE RESTAURANT-->
+            <button type="button" data-id='{{this.id}}' onClick='deleteRestaurant({{this.id}});'>
+                Delete
+            </button>
+        </article>
+    {{/each}}
+    <script>
+        let numOfRestaurants = {{restaurants.length}} - 1;
+        async function deleteRestaurant(id) {
+            /*The global fetch() method starts the process of fetching a resource from the network, 
+            returning a promise which is fulfilled once the response is available.
+            */
+            const response = await fetch(`/restaurants/${id}`, { method: 'DELETE' }).then(() => document.getElementById(`article-${id}`).remove());
+            numOfRestaurants -= 1;
+            document.getElementById('numOfRestos').innerHTML = `There are ${numOfRestaurants} restaurants`);
+        };
+        /*
+        async function viewRestaurant(id) {
+            await fetch(`http://localhost:3002/api/restaurants/${id}/menus`, { method: 'GET' })
+                .then(response => response.json())
+                .then(data => document.getElementById(`menu-div-${id}`).innerHTML = JSON.stringify(data));
+        };
+        */
+    </script>
+</section>
