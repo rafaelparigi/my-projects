@@ -12,7 +12,7 @@ const express = require('express');
         const restaurant = await Restaurant.create(req.body);
 
         //201 created a resource
-        res.status(201).render('index');
+        res.redirect('/restaurants');
     } catch(e) {
         res.status(400).send(e.message);
     };
@@ -24,13 +24,22 @@ router.get('/', async (req, res) => {
     res.render('restaurants', { restaurants });
 });
 
-/* 
-this route returns HTML for a single restaurant
+//this route returns HTML for a single restaurant
 router.get('/:id', async (req, res) => {
     const restaurant = await Restaurant.findOne({where: {id: req.params.id}});
     res.render('restaurant', { restaurant });
 });
-*/
+
+router.put('/restaurants/:id', async (req, res) => {
+    try {
+        const restaurantId = req.params.id;
+        await Restaurant.update({name: 'Updated restaurant', imagelink: '54543'}, {where: {id: restaurantId}});
+        res.redirect(`/restaurants`);
+    } catch(e) {
+        res.status(400).send(e.message);
+    };
+});
+
 
 router.delete('/:id', async (req, res) => {
     try {
@@ -48,7 +57,7 @@ router.post('/:restaurant_id/menus', async (req, res) => {
         if (restaurant) {
             const menu = await Menu.create(req.body);
             await restaurant.addMenu(menu);
-            res.render('index');
+            res.redirect(`/restaurants/${req.params.restaurant_id}/menus`);
         } else {
             res.status(400).send(`${req.params.restaurant_id} does not exist`);
         }

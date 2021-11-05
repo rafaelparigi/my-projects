@@ -11,7 +11,7 @@ router.post('/:menu_id/menu_items', async (req, res) => {
         const menu = await Menu.findOne({where: {id: req.params.menu_id}});
         const menuItem = await MenuItem.create(req.body);
         await menu.addMenuItem(menuItem);
-        res.status(201).render('index');
+        res.redirect(`/menus/${req.params.menu_id}/menu_items`);
     } catch (error) {
         res.status(400).send(error.message);
     }

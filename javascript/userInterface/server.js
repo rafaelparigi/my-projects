@@ -17,7 +17,7 @@ app.engine('handlebars', handlebars);
 app.set('view engine', 'handlebars');
 
 // serve static assets from the public/ folder
-app.use(express.static('/public'));
+app.use(express.static('public'));
 
 // support the parsing of incoming requests with urlencoded payloads (e.g. form POST)
 app.use(express.urlencoded({ extended: true }));

@@ -1,7 +1,8 @@
 <section id="numOfRestos">
-    There are {{restaurants.length}} restaurants.
+    <h2>There are {{restaurants.length}} restaurants.</h2>
 </section>
 
+<h2>Create New Restaurant</h2>
 <form method="post" action="/restaurants">
     <input placeholder="New restaurant name" type="text" name="name"/>
     <input placeholder="Restaurant image" type="text" name="imagelink"/>   
@@ -17,11 +18,12 @@
             <img src="{{this.imagelink}}" alt="{{this.name}}" width="200" height="200">
             <!-- <button type="button" data-id='{{this.id}}' onClick='viewRestaurant({{this.id}});'> View</button> -->
             <a href='/restaurants/{{id}}/menus'>Go to menu</a>
+            <a href='/restaurants/{{id}}'>Update restaurant</a>
             
             <!-- data-*	Used to store custom data private to the page or application
                  id	Specifies a unique id for an element-->
             <!--//TO DELETE RESTAURANT-->
-            <button type="button" data-id='{{this.id}}' onClick='deleteRestaurant({{this.id}});'>
+            <button type="button" data-id='{{this.id}}' onClick='deleteRestaurant({{this.id}})'>
                 Delete
             </button>
         </article>

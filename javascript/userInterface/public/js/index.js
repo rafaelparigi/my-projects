@@ -7,8 +7,10 @@ async function deleteRestaurant(id) {
     document.getElementById('numOfRestos').innerHTML = `There are ${numOfRestaurants} restaurants`;
 };
 
+console.log('anything');
+
 async function deleteMenu(restoId, menuId) {
-    const response = await fetch(`restaurants/${restoId}/menus/${menuId}`, { method: 'DELETE' }).then(() => document.getElementById(`article-${menuId}`).remove()).then(() => {
+    await fetch(`/restaurants/${restoId}/menus/${menuId}`, { method: 'DELETE' }).then(() => document.getElementById(`article-${menuId}`).remove()).then(() => {
         numOfMenus -= 1
         document.getElementById('numOfMenus').innerHTML = `There are ${numOfMenus} menus.`
     });
