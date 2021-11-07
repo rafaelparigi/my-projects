@@ -1,19 +1,14 @@
-<h2>
-    {{restaurant.id}}
-    {{restaurant.name}}
-</h2>
-
-<h2>Update a restaurant</h2>
+<h2>Update restaurant</h2>
 
 <form id='updateRestoForm'>
     <input type="hidden" name="restaurantId" value= "{{restaurant.id}}">
     <div>
-        <label for='name'>Name</label><br />
-        <input id='name' placeholder='restaurant name' type='text' name='name' required />
+        <label for='name'>Name</label><br/>
+        <input id='name' placeholder='restaurant name' type='text' name='name' value= "{{restaurant.name}}" required />
     </div>
     <div>
         <label for='imagelink'>Image link</label><br />
-        <input id='imagelink' type='text' name='imagelink' required />
+        <input id='imagelink' type='text' name='imagelink' value= "{{restaurant.imagelink}}" required />
     </div>
     <button type='submit' class='button--anchor'>Submit</button>
 </form>
@@ -23,10 +18,12 @@
     const updateForm = document.getElementById("updateRestoForm");
 
     //set event listener to form, listening for submit events
-    updateForm.addEventListener("submit", updateRestaurant);
+    updateForm.addEventListener("submit", event => {
+        event.preventDefault();
+        updateRestaurant(event);
+    });
 
     async function updateRestaurant (event) {
-
         const form = event.target;
 
         const data = {
@@ -37,14 +34,11 @@
 
         const response = await fetch(`/restaurants/${data.id}`, {
             method: 'put',
-            headers: {
-                "Content-Type":"application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
-            });
-            if (response.ok) {
-                window.location = `/restaurants`
-            }
         });
-    }
+        if (response.ok) {
+            {{!-- window.location = `/restaurants`; --}}
+        }
+    };
 </script>

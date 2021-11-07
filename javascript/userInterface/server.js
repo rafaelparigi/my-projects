@@ -16,9 +16,14 @@ const handlebars = expressHandlebars({
 app.engine('handlebars', handlebars);
 app.set('view engine', 'handlebars');
 
+//express.static is a piece of middleware (code which runs on the server between getting a request and sending a response) that makes 
+//everything inside the folder used as an argument (public folder here) available/public as a static file to the frontend/browser. 
+//Whenever we want to use the files inside the public folder, we just need to specify a path relative to the public folder.
+
 // serve static assets from the public/ folder
 app.use(express.static('public'));
 
+//middleware that takes all the url encoded data and passes it into an object that we can use on the request object. Allow us to use req.body or the variables sent in the url.
 // support the parsing of incoming requests with urlencoded payloads (e.g. form POST)
 app.use(express.urlencoded({ extended: true }));
 

@@ -1,4 +1,4 @@
-//Here we are scoping the routes out
+//Here we are scoping the routes out for all urls that begin with restaurants
 
 const { Restaurant, Menu } = require('../sequelize-connect');
 const express = require('express');
@@ -15,37 +15,41 @@ const express = require('express');
         res.redirect('/restaurants');
     } catch(e) {
         res.status(400).send(e.message);
-    };
+    }
 });
 
 // this route returns HTML for all the restaurants
 router.get('/', async (req, res) => {
     const restaurants = await Restaurant.findAll();
-    res.render('restaurants', { restaurants });
+    res.render('restaurant/restaurant-list', { restaurants });
 });
 
-//this route returns HTML for a single restaurant
-router.get('/:id', async (req, res) => {
+//this route returns HTML to create a new restaurant
+router.get('/create', async (req, res) => {
+    res.render('restaurant/create-restaurant');
+});
+
+//this route returns HTML to update a restaurant
+router.get('/:id/update', async (req, res) => {
     const restaurant = await Restaurant.findOne({where: {id: req.params.id}});
-    res.render('restaurant', { restaurant });
+    res.render('restaurant/update-restaurant', { restaurant });
 });
 
-router.put('/restaurants/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const restaurantId = req.params.id;
-        await Restaurant.update({name: 'Updated restaurant', imagelink: '54543'}, {where: {id: restaurantId}});
-        res.redirect(`/restaurants`);
+        await Restaurant.update({name: req.body.name, imagelink: req.body.imagelink}, {where: {id: restaurantId}});
+        res.render('restaurant/restaurant-list');
     } catch(e) {
         res.status(400).send(e.message);
     };
 });
 
-
 router.delete('/:id', async (req, res) => {
     try {
         const restaurantId = req.params.id;
         const restaurantToDelete = await Restaurant.destroy({where: {id: restaurantId}});
-        res.status(201).send('deleled restaurant with ID ' + restaurantId);
+        res.status(201).send('deleted restaurant with ID ' + restaurantId);
     } catch(e) {
         res.status(400).send(e.message);
     };
@@ -69,7 +73,13 @@ router.post('/:restaurant_id/menus', async (req, res) => {
 router.get('/:id/menus', async (req, res) => {
     const menus = await Menu.findAll({where: {RestaurantId: req.params.id}});
     const resto_id = req.params.id;
-    res.render('menus', { menus, resto_id });
+    res.render('menu/menu-list', { menus, resto_id });
+});
+
+router.get('/:id/menus/create', async (req, res) => {
+    const menus = await Menu.findAll({where: {RestaurantId: req.params.id}});
+    const resto_id = req.params.id;
+    res.render('menu/create-menu', { menus, resto_id });
 });
 
 router.delete('/:restaurant_id/menus/:menu_id', async (req, res) => {

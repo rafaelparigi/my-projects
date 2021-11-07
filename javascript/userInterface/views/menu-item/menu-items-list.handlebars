@@ -1,13 +1,8 @@
 <section id="numberOfMenuItems"> There are {{menuItems.length}} menu items in this menu </section>
 
 <section>
-    <!--menu_id and menuItems are passed from the get request as arguments that we can acess in menuItems.handlebars-->
-    <!--//TO POST a new menu item for a specific menu-->
-    <form action="/menus/{{menu_id}}/menu_items" method="post"> 
-        <input placeholder="new menu item" type="text" name="name">
-        <input placeholder="price of new menu item" type="text" name="price">
-        <input type="submit">
-    </form>
+
+    <a href='/menus/{{menu_id}}/menu_items/create'>Create menu item</a> 
 
     <!--//TO GET the menu items of a specific menu-->
     {{#each menuItems}}

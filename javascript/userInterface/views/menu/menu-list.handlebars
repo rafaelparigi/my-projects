@@ -2,12 +2,7 @@
     There are {{menus.length}} menus.
 </section>
 
-<!--resto_id and menus are passed from the get request as arguments that we can acess in menus.handlebars-->
-<!--//TO POST a new menu for a specific restaurant-->
-<form action="/restaurants/{{resto_id}}/menus" method="post"> 
-    <input placeholder="new menu title" type="text" name="title">
-    <input type="submit">
-</form>
+<a href='/restaurants/{{resto_id}}/menus/create'>Create menu</a>
 
 <section>
     <!--//TO GET menus for a specific restaurant-->

@@ -1,4 +1,4 @@
-//Here we are scoping the routes out
+//Here we are scoping the routes out for all urls that begin with menus
 
 const { Menu, MenuItem } = require('../sequelize-connect');
 const express = require('express');
@@ -20,7 +20,13 @@ router.post('/:menu_id/menu_items', async (req, res) => {
 router.get('/:menu_id/menu_items', async (req, res) => {
     const menu_id = req.params.menu_id;
     const menuItems = await MenuItem.findAll({where: {Menuid: menu_id}});
-    res.render('menuItems', { menuItems, menu_id }); 
+    res.render('menu-item/menu-items-list', { menuItems, menu_id }); 
+});
+
+router.get('/:menu_id/menu_items/create', async (req, res) => {
+    const menu_id = req.params.menu_id;
+    const menuItems = await MenuItem.findAll({where: {Menuid: menu_id}});
+    res.render('menu-item/create-menu-item', { menuItems, menu_id }); 
 });
 
 router.delete('/:menu_id/menu_items/:menu_item_id', async (req, res) => {
